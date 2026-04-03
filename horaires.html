@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horaires - MaGare</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href=style.css>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        /* === BASE === */
+        body {
+            background-color: #f5f5f5;
+            padding-top: 70px;
+        }
+        /* navbar*/
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #0066ff !important;
+            transition: transform 0.2s;
+            margin-left: 8px;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.03);
+        }
+
+        .navbar-brand img {
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2);
+        }
+
+        .navbar-nav .nav-link {
+            color: #666 !important;
+            font-weight: 500;
+            padding: 8px 18px !important;
+            margin: 0 3px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #f0f7ff;
+            color: #0066ff !important;
+        }
+
+        .navbar-nav .nav-item.active .nav-link {
+            background-color: #0066ff;
+            color: white !important;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3);
+        }
+
+        .navbar-toggler {
+            border: 2px solid #0066ff;
+            background-color: #f0f7ff;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 102, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        /* === HEADER BLEU === */
+        .header-section {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-section h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin: 0;
+        }
+        
+        .clock-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        
+        
+        
+        /* === ALERT SECTION === */
+        .alert-custom {
+            background-color: #fff9e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-custom h6 {
+            color: #e65100;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-custom ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #bf360c;
+        }
+        
+        .alert-custom li {
+            margin-bottom: 5px;
+        }
+        
+        /* === FILTRES SECTION === */
+        .filters-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .filters-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .filters-title::before {
+            content: "⚙️";
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .form-control {
+            height: 50px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+        }
+        
+        /* === TABLE CONTAINER === */
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .table-header {
+            margin-bottom: 10px;
+        }
+        
+        .table-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .results-count {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        
+        /* === TABLE STYLES === */
+        .train-table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .train-table thead {
+            background-color: #f8f9fa;
+        }
+        
+        .train-table thead th {
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .train-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+        }
+        
+        .train-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .train-table tbody td {
+            padding: 20px 15px;
+            vertical-align: middle;
+            border: none;
+        }
+        
+        /* === TRAIN INFO === */
+        .train-number {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .train-icon {
+            color: #0066ff;
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .departure-time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .delay-text {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: block;
+            margin-top: 3px;
+        }
+        
+        .arrival-time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* === BADGES === */
+        .badge-type {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .badge-tgv {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .badge-intercites {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .badge-ter {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .class-text {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .platform-badge {
+            background-color: #ffc107;
+            color: #000;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-block;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        /* === STATUS === */
+        .status-ontime {
+            color: #2e7d32;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-ontime::before {
+            content: "✓";
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        
+        .status-delayed {
+            color: #d32f2f;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-delayed::before {
+            content: "⚠";
+            margin-right: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-md navbar-light fixed-top">
+        <a class="navbar-brand" href="index.html">
+            <img src="Logo.png" alt="Logo" height="40" class="mr-2">
+            MaGare
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Accueil</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="horaires.html">Horaires</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="station.html">Stations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tarifs.html">Tarifs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+
+
+    <!-- Header bleu -->
+    <div class="header-section">
+        <div class="container">
+            
+            <h1>
+                
+                Horaires des Trains.
+            </h1>
+            <p>Consultez les horaires en temps réel et planifiez votre voyage.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        
+      
+
+        <!-- Alert retards -->
+        <div class="alert-custom">
+            <h6>⚠️ Informations sur les retards</h6>
+            <ul>
+                <li>Train TGV 6623 - Retard de 15 minutes</li>
+                <li>Train TER 17234 - Retard de 5 minutes</li>
+            </ul>
+        </div>
+
+        <!-- Section de recherche/filtres -->
+        <div class="filters-section">
+            <h5>Rechercher un train</h5>
+            
+            <div class="row">
+                <!-- Type de train -->
+                <div class="col-md-3 mb-3">
+                    <label class="filter-label">Type de train</label>
+                    <select class="form-control" id="filterType">
+                        <option value="">Tous les types</option>
+                        <option value="TGV">TGV</option>
+                        <option value="TER">TER</option>
+                        <option value="Intercités">Intercités</option>
+                        <option value="Eurostar">Eurostar</option>
+                    </select>
+                </div>
+                
+                <!-- Compartiment -->
+                <div class="col-md-3 mb-3">
+                    <label class="filter-label">Compartiment</label>
+                    <select class="form-control" id="filterClass">
+                        <option value="">Toutes les classes</option>
+                        <option value="1ère">1ère classe</option>
+                        <option value="2ème">2ème classe</option>
+                    </select>
+                </div>
+
+                <!-- Heure -->
+                <div class="col-md-3 mb-3">
+                    <label class="filter-label">Heure de départ</label>
+                    <input type="time" class="form-control" id="filterHeure">
+                </div>
+
+                <!-- Date -->
+                <div class="col-md-3 mb-3">
+                    <label class="filter-label">Date</label>
+                    <input type="date" class="form-control" id="filterDate">
+                </div>
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-block btn-lg" id="applyFilters">Lancer la recherche</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-outline-secondary btn-block btn-lg" id="resetFilters">Réinitialiser</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="table-container">
+            <div class="table-header">
+                <h2>Table des horaires</h2>
+                <p class="results-count" id="resultsCount">6 trains trouvés</p>
+            </div>
+            
+            <table class="train-table">
+                <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Date</th>
+                        <th>Départ</th>
+                        <th>Arrivée</th>
+                        <th>Type</th>
+                        <th>Classe</th>
+                        <th>Quai</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody id="trainTableBody">
+                    <!-- Train 1 -->
+                    <tr data-depart="Paris Gare de Lyon" data-arrivee="Lyon Part-Dieu" data-date="2025-12-09" data-type="TGV" data-class="1ère et 2ème" data-heure="06:45">
+                        <td>
+                            <div class="train-number">
+                                TGV 6621
+                            </div>
+                        </td>
+                        <td>09/12/2025</td>
+                        <td>
+                            <div class="departure-time">06:45</div>
+                        </td>
+                        <td>
+                            <div class="arrival-time">08:45</div>
+                        </td>
+                        <td>
+                            <span class="badge-type badge-tgv">TGV</span>
+                        </td>
+                        <td>
+                            <span class="class-text">1ère et 2ème</span>
+                        </td>
+                        <td>
+                            <span class="platform-badge">A</span>
+                        </td>
+                        <td>
+                            <span class="status-ontime">À l'heure</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Train 2 - Retardé -->
+                    <tr data-depart="Paris Gare de Lyon" data-arrivee="Marseille Saint-Charles" data-date="2025-12-09" data-type="TGV" data-class="1ère et 2ème" data-heure="07:15">
+                        <td>
+                            <div class="train-number">
+                                TGV 6623
+                            </div>
+                        </td>
+                        <td>09/12/2025</td>
+                        <td>
+                            <div class="departure-time">07:15</div>
+                            <span class="delay-text">+15 min</span>
+                        </td>
+                        <td>
+                            <div class="arrival-time">09:20</div>
+                        </td>
+                        <td>
+                            <span class="badge-type badge-tgv">TGV</span>
+                        </td>
+                        <td>
+                            <span class="class-text">1ère et 2ème</span>
+                        </td>
+                        <td>
+                            <span class="platform-badge">C</span>
+                        </td>
+                        <td>
+                            <span class="status-delayed">Retardé</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Train 3 -->
+                    <tr data-depart="Paris Gare de Lyon" data-arrivee="Lyon Part-Dieu" data-date="2025-12-09" data-type="TGV" data-class="1ère et 2ème" data-heure="08:00">
+                        <td>
+                            <div class="train-number">
+                                TGV 6625
+                            </div>
+                        </td>
+                        <td>09/12/2025</td>
+                        <td>
+                            <div class="departure-time">08:00</div>
+                        </td>
+                        <td>
+                            <div class="arrival-time">10:00</div>
+                        </td>
+                        <td>
+                            <span class="badge-type badge-tgv">TGV</span>
+                        </td>
+                        <td>
+                            <span class="class-text">1ère et 2ème</span>
+                        </td>
+                        <td>
+                            <span class="platform-badge">B</span>
+                        </td>
+                        <td>
+                            <span class="status-ontime">À l'heure</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Train 4 - Intercités -->
+                    <tr data-depart="Paris Gare de Lyon" data-arrivee="Bordeaux Saint-Jean" data-date="2025-12-10" data-type="Intercités" data-class="2ème" data-heure="09:30">
+                        <td>
+                            <div class="train-number">
+                                IC 5321
+                            </div>
+                        </td>
+                        <td>10/12/2025</td>
+                        <td>
+                            <div class="departure-time">09:30</div>
+                        </td>
+                        <td>
+                            <div class="arrival-time">14:15</div>
+                        </td>
+                        <td>
+                            <span class="badge-type badge-intercites">Intercités</span>
+                        </td>
+                        <td>
+                            <span class="class-text">2ème</span>
+                        </td>
+                        <td>
+                            <span class="platform-badge">D</span>
+                        </td>
+                        <td>
+                            <span class="status-ontime">À l'heure</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Train 5 -->
+                    <tr data-depart="Lyon Part-Dieu" data-arrivee="Marseille Saint-Charles" data-date="2025-12-09" data-type="TGV" data-class="1ère et 2ème" data-heure="10:45">
+                        <td>
+                            <div class="train-number">
+                                TGV 6627
+                            </div>
+                        </td>
+                        <td>09/12/2025</td>
+                        <td>
+                            <div class="departure-time">10:45</div>
+                        </td>
+                        <td>
+                            <div class="arrival-time">12:45</div>
+                        </td>
+                        <td>
+                            <span class="badge-type badge-tgv">TGV</span>
+                        </td>
+                        <td>
+                            <span class="class-text">1ère et 2ème</span>
+                        </td>
+                        <td>
+                            <span class="platform-badge">A</span>
+                        </td>
+                        <td>
+                            <span class="status-ontime">À l'heure</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Train 6 - TER Retardé -->
+                    <tr data-depart="Paris Gare de Lyon" data-arrivee="Toulouse Matabiau" data-date="2025-12-10" data-type="TER" data-class="2ème" data-heure="11:20">
+                        <td>
+                            <div class="train-number">
+                                TER 17234
+                            </div>
+                        </td>
+                        <td>10/12/2025</td>
+                        <td>
+                            <div class="departure-time">11:20</div>
+                            <span class="delay-text">+5 min</span>
+                        </td>
+                        <td>
+                            <div class="arrival-time">16:50</div>
+                        </td>
+                        <td>
+                            <span class="badge-type badge-ter">TER</span>
+                        </td>
+                        <td>
+                            <span class="class-text">2ème</span>
+                        </td>
+                        <td>
+                            <span class="platform-badge">E</span>
+                        </td>
+                        <td>
+                            <span class="status-delayed">Retardé</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+<div id="noResults" class="alert alert-info text-center mt-4" style="display: none;">
+    Aucun train ne correspond à vos critères de recherche.
+</div>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="row">
+                
+                <!-- À PROPOS -->
+                <div class="col-md-4 mb-4">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img src="Logo.png" alt="Logo" height="40" class="mr-2">
+                            MaGare
+                        </div>
+                        <p>Votre agence de réservation de billets de train en ligne. Voyagez simplement et rapidement partout en France.</p>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Twitter">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" title="LinkedIn">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LIENS RAPIDES -->
+                <div class="col-md-4 mb-4">
+                    <div class="footer-section">
+                        <h5>Liens Rapides</h5>
+                        <ul>
+                            <li><a href="index.html"><i class="bi bi-house-door"></i> Accueil</a></li>
+                            <li><a href="horaires.html"><i class="bi bi-clock"></i> Horaires des trains</a></li>
+                            <li><a href="station.html"><i class="bi bi-train-front"></i> Nos stations</a></li>
+                            <li><a href="tarifs.html"><i class="bi bi-cash"></i> Tarifs et réductions</a></li>
+                            <li><a href="contact.html"><i class="bi bi-envelope"></i> Nous contacter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- CONTACT -->
+                <div class="col-md-4 mb-4">
+                    <div class="footer-section">
+                        <h5>Contactez-nous</h5>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon"><i class="bi bi-geo-alt"></i></span>
+                            <div>
+                                <strong style="color: #fff;">Adresse</strong><br>
+                                Polytec Sousse<br>
+                                Sousse, Tunisie
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon"><i class="bi bi-telephone"></i></span>
+                            <div>
+                                <strong style="color: #fff;">Téléphone</strong><br>
+                                +216 73 123 456
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon"><i class="bi bi-envelope"></i></span>
+                            <div>
+                                <strong style="color: #fff;">Email</strong><br>
+                                contact@agence-trains.tn
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- FOOTER BOTTOM -->
+        <div class="footer-bottom">
+            <p>
+                © 2025 Mon Site - Tous droits réservés | 
+                <a href="mentions-legales.html">Mentions légales</a> | 
+                <a href="cgv.html">CGV</a> | 
+                <a href="confidentialite.html">Politique de confidentialité</a> | 
+                <a href="cookies.html">Cookies</a>
+            </p>
+            <p class="mt-2" style="color: #666;">
+                Développé avec ❤️ par Dr Rim Zarrouk - Polytec Sousse 2025-2026
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script>
+        // Fonction pour filtrer les trains
+        function filterTrains() {
+            const filterType = document.getElementById('filterType').value;
+            const filterClass = document.getElementById('filterClass').value;
+            const filterHeure = document.getElementById('filterHeure').value;
+            const filterDate = document.getElementById('filterDate').value;
+            
+            const rows = document.querySelectorAll('#trainTableBody tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const rowType = row.getAttribute('data-type');
+                const rowClass = row.getAttribute('data-class');
+                const rowHeure = row.getAttribute('data-heure');
+                const rowDate = row.getAttribute('data-date');
+                
+                // Vérifier tous les critères
+                const matchType = !filterType || rowType === filterType;
+                const matchClass = !filterClass || rowClass.includes(filterClass);
+                const matchHeure = !filterHeure || rowHeure >= filterHeure;
+                const matchDate = !filterDate || rowDate === filterDate;
+                
+                // Afficher ou masquer la ligne
+                if (matchType && matchClass && matchHeure && matchDate) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Mettre à jour le compteur de résultats
+            const resultsCount = document.getElementById('resultsCount');
+            resultsCount.textContent = visibleCount + ' train' + (visibleCount > 1 ? 's' : '') + ' trouvé' + (visibleCount > 1 ? 's' : '');
+            
+            // Afficher/masquer le message "Aucun résultat"
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+        
+        // Lancer la recherche
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            filterTrains();
+            
+            // Scroll vers les résultats
+            document.querySelector('.table-container').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        });
+        
+        // Réinitialiser les filtres
+        document.getElementById('resetFilters').addEventListener('click', function() {
+    
+            // Réinitialiser les sélecteurs
+            document.getElementById('filterType').value = '';
+            document.getElementById('filterClass').value = '';
+            document.getElementById('filterHeure').value = '';
+            document.getElementById('filterDate').value = '';
+            
+            // Afficher tous les trains
+            const rows = document.querySelectorAll('#trainTableBody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+            
+            // Mettre à jour le compteur
+            const resultsCount = document.getElementById('resultsCount');
+            resultsCount.textContent = '6 trains trouvés';
+            
+            // Masquer le message "Aucun résultat"
+            const noResults = document.getElementById('noResults');
+            noResults.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

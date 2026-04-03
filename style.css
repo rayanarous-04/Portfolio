@@ -1,0 +1,124 @@
+/* === FOOTER === */
+footer {
+    background-color: white;
+    color: #333;
+    padding: 50px 0 20px 0;
+    margin-top: 80px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+.footer-content {
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f0f7ff;
+}
+
+.footer-section h5 {
+    color: #0066ff;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section ul li a {
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.footer-section ul li a:hover {
+    color: #0066ff;
+    transform: translateX(5px);
+}
+
+.contact-item {
+    display: flex;
+    align-items: start;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    margin-top: 20px;
+    color: #0066ff;
+    min-width: 30px;
+
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-link {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f0f7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #0066ff;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.social-link:hover {
+    background-color: #0066ff;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
+}
+
+.footer-bottom {
+    padding-top: 25px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.footer-bottom a {
+    color: #0066ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0066ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo img {
+    margin-right: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2);
+}

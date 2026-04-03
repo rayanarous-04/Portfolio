@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaGare</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href=style.css>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        /* === BASE === */
+        body {
+            background-color: #f5f5f5;
+            padding-top: 70px;
+        }
+        
+        /* === NAVBAR === */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 12px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #0066ff !important;
+            transition: transform 0.2s;
+            margin-left: 8px;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.03);
+        }
+        
+        .navbar-brand img {
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2);
+            
+        }
+        
+        .navbar-nav .nav-link {
+            color: #666 !important;
+            font-weight: 500;
+            padding: 8px 18px !important;
+            margin: 0 3px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            background-color: #f0f7ff;
+            color: #0066ff !important;
+        }
+        
+        .navbar-nav .nav-item.active .nav-link {
+            background-color: #0066ff;
+            color: white !important;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3);
+        }
+        
+        .navbar-toggler {
+            border: 2px solid #0066ff;
+            background-color: #f0f7ff;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 102, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        /* === HEADER BLEU === */
+        .header-section {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .header-section p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin: 0;
+        }
+        
+        
+        
+        /* === SECTION DE RECHERCHE === */
+        .search-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .search-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .search-section .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            border: none;
+            padding: 12px 40px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: transform 0.2s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+        }
+        
+        /* === TABLE SECTION === */
+        .table-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .table-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .table-section .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .train-table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .train-table thead {
+            background-color: #f8f9fa;
+        }
+        
+        .train-table thead th {
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .train-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+        }
+        
+        .train-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .train-table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            border: none;
+        }
+        
+        .train-number {
+            font-weight: 600;
+            color: #0066ff;
+        }
+        
+        .badge-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge-ontime {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        /* === CARDS SECTION === */
+        .cards-section {
+            margin-bottom: 50px;
+        }
+        
+        .cards-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: 100%;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .service-card .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .service-card .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .service-card .card-text {
+            color: #666;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+        
+        .station-card .btn {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        
+        .station-card .btn:hover {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .station-image {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+        .station-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2rem;
+            }
+            
+            .search-section {
+                padding: 25px;
+            }
+        }
+        
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="index.html">
+            <img src="Logo.png" alt="Logo" height="40" class="mr-2">
+            MaGare
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="horaires.html">Horaires</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="station.html">Stations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tarifs.html">Tarifs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="header-section">
+        <div class="container">
+            
+            <h1>Bienvenue sur notre plateforme de réservation de trains.</h1>
+            <p>Réservez vos billets de train en toute simplicité.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <!-- BARRE DE RECHERCHE -->
+        <div class="search-section">
+            <h2>Recherchez votre train</h2>
+            <p class="subtitle">Trouvez rapidement les horaires et réservez vos billets</p>
+            <form id="searchForm">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Station de départ</label>
+                        <input type="text" class="form-control" id="depart" placeholder="Ex: Paris Gare de Lyon">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Station d'arrivée</label>
+                        <input type="text" class="form-control" id="arrivee" placeholder="Ex: Lyon Part-Dieu">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Date</label>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">
+                     Rechercher les horaires
+                </button>
+            </form>
+        </div>
+
+        <!-- TABLE DES DÉPARTS DU JOUR -->
+        <div class="table-section">
+            <h2>Départs du jour</h2>
+            <p class="subtitle">Prochains trains au départ</p>
+            
+            <table class="train-table table">
+                <thead>
+    <tr>
+        <th>Numéro</th>
+        <th>Départ</th>
+        <th>Destination</th>
+        <th>Date</th>
+        <th>Heure départ</th>
+        <th>Heure arrivée</th>
+        <th>Statut</th>
+    </tr>
+</thead>
+              <tbody id="trainTableBody">
+    <tr data-depart="Paris Gare de Lyon" data-destination="Lyon Part-Dieu" data-date="2025-12-09">
+        <td class="train-number">TGV 6621</td>
+        <td>Lyon</td>
+        <td>Lyon Part-Dieu</td>
+        <td>09/12/2025</td>
+        <td>06:45</td>
+        <td>08:45</td>
+        <td><span class="badge-status badge-ontime">À l'heure</span></td>
+    </tr>
+    <tr data-depart="Paris Gare de Lyon" data-destination="Marseille Saint-Charles" data-date="2025-12-09">
+        <td class="train-number">TGV 6623</td>
+        <td>Lyon</td>
+        <td>Marseille Saint-Charles</td>
+        <td>09/12/2025</td>
+        <td>07:15</td>
+        <td>10:30</td>
+        <td><span class="badge-status badge-ontime">À l'heure</span></td>
+    </tr>
+    <tr data-depart="Paris Gare de Lyon" data-destination="Bordeaux Saint-Jean" data-date="2025-12-10">
+        <td class="train-number">IC 5321</td>
+        <td>Marseille Saint-Charles</td>
+        <td>Lyon</td>
+        <td>09/12/2025</td>
+        <td>09:30</td>
+        <td>14:15</td>
+        <td><span class="badge-status badge-ontime">À l'heure</span></td>
+    </tr>
+    <tr data-depart="Paris Gare de Lyon" data-destination="Toulouse Matabiau" data-date="2025-12-10">
+        <td class="train-number">TER 17234</td>
+        <td>Lyon Part-Dieu</td>
+        <td>Marseille Saint-Charles</td>
+        <td>09/12/2025</td>
+        <td>11:20</td>
+        <td>16:50</td>
+        <td><span class="badge-status badge-ontime">À l'heure</span></td>
+    </tr>
+</tbody>  
+            </table>
+        </div>
+        <div id="noResults" class="alert alert-info text-center" style="display: none;">
+    Aucun train ne correspond à vos critères de recherche.
+</div>
+
+        <!-- CARDS DES STATIONS POPULAIRES -->
+        <div class="cards-section">
+            <h2>Stations Populaires</h2>
+            <p class="text-center text-muted mb-4">Découvrez nos principales gares et leurs informations</p>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                
+                <div class="col mb-4">
+                    <div class="card service-card station-card">
+                        <div class="station-image">
+            <img src="https://i.pinimg.com/originals/a0/d8/bc/a0d8bc622f83d3feb57e8920064a7b94.jpg" alt="Gare de Lyon">
+            
+        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Gare de Lyon</h5>
+                            <p class="card-text">
+                                <strong>📍 Adresse :</strong> Place Louis-Armand, Paris<br>
+                                <strong>🚄 Lignes :</strong> TGV, Intercités, TER<br>
+                                <strong>⏰ Services :</strong> 24h/24
+                            </p>
+                            <a href="station.html?station=lyon" class="btn btn-outline-primary btn-sm btn-block">Voir les détails</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col mb-4">
+                    <div class="card service-card station-card">
+                        <div class="station-image">
+            <img src="https://rossaprimavera.ru/static/files/1c172984fb6c.jpg" alt="Gare de Lyon">
+            
+        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Gare de Lyon Part-Dieu</h5>
+                            <p class="card-text">
+                                <strong>📍 Adresse :</strong> Place Charles Béraudier, Lyon<br>
+                                <strong>🚄 Lignes :</strong> TGV, Intercités<br>
+                                <strong>⏰ Services :</strong> 24h/24
+                            </p>
+                            <a href="station.html?station=partdieu" class="btn btn-outline-primary btn-sm btn-block">Voir les détails</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col mb-4">
+                    <div class="card service-card station-card">
+                        <div class="station-image">
+            <img src="https://cdn.images.express.co.uk/img/dynamic/78/590x/secondary/GardeduNord-1742013.jpg?r=1550331350594" alt="Gare de Lyon">
+            
+        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Gare de Marseille Saint-Charles</h5>
+                            <p class="card-text">
+                                <strong>📍 Adresse :</strong> Place Victor Hugo, Marseille<br>
+                                <strong>🚄 Lignes :</strong> TGV, TER<br>
+                                <strong>⏰ Services :</strong> 5h-0h
+                            </p>
+                            <a href="station.html?station=marseille" class="btn btn-outline-primary btn-sm btn-block">Voir les détails</a>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="row">
+                
+                <!-- À PROPOS -->
+                <div class="col-md-4 mb-4">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img src="Logo.png" alt="Logo" height="40" class="mr-2">
+                            MaGare
+                        </div>
+                        <p>Votre agence de réservation de billets de train en ligne. Voyagez simplement et rapidement partout en France.</p>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Twitter">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" title="LinkedIn">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LIENS RAPIDES -->
+                <div class="col-md-4 mb-4">
+                    <div class="footer-section">
+                        <h5>Liens Rapides</h5>
+                        <ul>
+                            <li><a href="index.html"><i class="bi bi-house-door"></i> Accueil</a></li>
+                            <li><a href="horaires.html"><i class="bi bi-clock"></i> Horaires des trains</a></li>
+                            <li><a href="station.html"><i class="bi bi-train-front"></i> Nos stations</a></li>
+                            <li><a href="tarifs.html"><i class="bi bi-cash"></i> Tarifs et réductions</a></li>
+                            <li><a href="contact.html"><i class="bi bi-envelope"></i> Nous contacter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- CONTACT -->
+                <div class="col-md-4 mb-4">
+                    <div class="footer-section">
+                        <h5>Contactez-nous</h5>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon"><i class="bi bi-geo-alt"></i></span>
+                            <div>
+                                <strong style="color: #fff;">Adresse</strong><br>
+                                Polytec Sousse<br>
+                                Sousse, Tunisie
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon"><i class="bi bi-telephone"></i></span>
+                            <div>
+                                <strong style="color: #fff;">Téléphone</strong><br>
+                                +216 73 123 456
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon"><i class="bi bi-envelope"></i></span>
+                            <div>
+                                <strong style="color: #fff;">Email</strong><br>
+                                contact@agence-trains.tn
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- FOOTER BOTTOM -->
+        <div class="footer-bottom">
+            <p>
+                © 2025 Mon Site - Tous droits réservés | 
+                <a href="mentions-legales.html">Mentions légales</a> | 
+                <a href="cgv.html">CGV</a> | 
+                <a href="confidentialite.html">Politique de confidentialité</a> | 
+                <a href="cookies.html">Cookies</a>
+            </p>
+            <p class="mt-2" style="color: #666;">
+                Développé avec ❤️ par Dr Rim Zarrouk - Polytec Sousse 2025-2026
+            </p>
+        </div>
+    </div>
+</footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const depart = document.getElementById('depart').value.trim().toLowerCase();
+        const arrivee = document.getElementById('arrivee').value.trim().toLowerCase();
+        const date = document.getElementById('date').value;
+        
+        // Validation simple
+        if (depart === '' || arrivee === '' || date === '') {
+            alert('⚠️ Veuillez remplir tous les champs de recherche');
+            return;
+        }
+        
+        // Vérifier que départ et arrivée sont différents
+        if (depart === arrivee) {
+            alert('⚠️ La station de départ et d\'arrivée doivent être différentes');
+            return;
+        }
+        
+        // Filtrer les trains
+        const rows = document.querySelectorAll('#trainTableBody tr');
+        let foundResults = false;
+        
+        rows.forEach(row => {
+            const rowDepart = row.getAttribute('data-depart').toLowerCase();
+            const rowDestination = row.getAttribute('data-destination').toLowerCase();
+            const rowDate = row.getAttribute('data-date');
+            
+            // Vérifier si le train correspond aux critères
+            if (rowDepart.includes(depart) && 
+                rowDestination.includes(arrivee) && 
+                rowDate === date) {
+                row.style.display = '';
+                foundResults = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        
+        // Afficher/masquer le message "Aucun résultat"
+        const noResults = document.getElementById('noResults');
+        if (foundResults) {
+            noResults.style.display = 'none';
+        } else {
+            noResults.style.display = 'block';
+        }
+        
+        // Scroll vers les résultats
+        document.querySelector('.table-section').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    });
+    
+    // Initialiser la date d'aujourd'hui par défaut
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').value = today;
+</script>
+
+
+
+</body>
+</html>
